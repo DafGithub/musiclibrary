@@ -1,0 +1,27 @@
+#easy_admin:
+#    entities:
+#        # List the entity class name you want to manage
+#        - App\Entity\Artist
+#        - App\Entity\MusicStyle
+#        - App\Entity\Song
+
+
+easy_admin:
+    entities:
+    # List the entity class name you want to manage
+        Artist :
+            class: App\Entity\Artist
+        MusicStyle :
+            class: App\Entity\MusicStyle
+        Song :
+            class: App\Entity\Song
+
+
+    site_name: Administration
+    design:
+#        brand_color: 'blue'
+    formats:
+        date:     'd/m/Y'
+        time:     'H:i'
+        datetime: 'd/m/Y H:i:s'
+        number: '%.2d'
