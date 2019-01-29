@@ -1,0 +1,22 @@
+{% extends '@!EasyAdmin/default/layout.html.twig' %}
+
+{% block main %}
+    Overridden using Symfony's template overriding mechanism.
+
+    {{ parent() }}
+
+    <h1>test </h1>
+{% endblock %}
+
+{% block header_logo %}
+    <a class="logo {{ easyadmin_config('site_name')|length > 14 ? 'logo-long' }}" title="{{ easyadmin_config('site_name')|striptags }}" href="{{ path('home') }}">
+        {{ easyadmin_config('site_name')|raw }}
+    </a>
+{% endblock header_logo %}
+
+
+
+
+
+
+

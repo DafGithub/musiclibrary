@@ -9,17 +9,32 @@
 easy_admin:
     entities:
     # List the entity class name you want to manage
+
+        Song:
+            class: App\Entity\Song
         Artist :
             class: App\Entity\Artist
         MusicStyle :
             class: App\Entity\MusicStyle
-        Song :
-            class: App\Entity\Song
 
+    site_name: 'Music Library'
+#    site_name: '<img src="https://symfony.com/logos/symfony_white_01.png" />'
 
-    site_name: Administration
     design:
+
 #        brand_color: 'blue'
+
+        menu:
+            - { entity: 'Song', icon: 'music' }
+            - { entity: 'Artist', icon: 'male' }
+            - { entity: 'MusicStyle',label: 'Style', icon: 'globe' }
+
+        assets:
+            css:
+            - 'bundles/easyadmin/bootstrap-all.css'
+            js:
+            - 'bundles/easyadmin/bootstrap-all.js'
+
     formats:
         date:     'd/m/Y'
         time:     'H:i'

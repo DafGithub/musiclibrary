@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Music Library{% endblock %}
 
 {% block body %}
     <div class="jumbotron text-center">
@@ -25,7 +25,6 @@
 
                                 {% for artist in song.artists %}
                                     {{ artist.alias }}
-
                                 {% endfor %}
 
                             </p>
