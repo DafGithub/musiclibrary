@@ -1,7 +1,62 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SongController!{% endblock %}
+{% block title %}Rechercher une musique{% endblock %}
 
 {% block body %}
+<div class="jumbotron">
+    <div class="container">
+        {{ form_start(form) }}
+        <div class="form-row">
+            <div class="col">
+                {{ form_row(form.styles) }}
+            </div>
+            {#<div class="col">#}
+                {#{{ form_row(form.name) }}#}
+            {#</div>#}
+            <div class="col">
+                <button class="btn btn-primary">Rechercher</button>
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+</div>
+    <div class="container mt-4">
+        <h1>Tous les morceaux de musique</h1>
+        <div class="row">
+            {% for song in songs %}
+                <div class="col-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h5>{{ song.name }}</h5>
+                            </div>
+                            <p class="card-text">
+                                Durée : {{ song.lenght }} sec
+                            </p>
+                            <p class="card-texte">
+                                Artiste :
+
+                                {% for artist in song.artists %}
+                                    {{ artist.alias }}
+                                {% endfor %}
+                            </p>
+                            <p class="card-texte">
+                                Style :
+
+                                {% for style in song.styles %}
+                                    {{ style.title }}
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="pagination">
+            {{ knp_pagination_render(songs) }}
+        </div>
+    </div>
+
 
 {% endblock %}

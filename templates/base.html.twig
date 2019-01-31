@@ -16,7 +16,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a href="" class="nav-link"></a>
+                    <a href="{{ path('song') }}" class="nav-link {% if current_menu is defined and current_menu == 'songs' %}active{% endif %}">Rechercher</a>
                 </li>
             </ul>
             <ul class="navbar-nav">

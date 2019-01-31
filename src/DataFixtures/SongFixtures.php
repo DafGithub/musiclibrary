@@ -18,6 +18,7 @@ class SongFixtures extends Fixture
             $song
                 ->setName($faker->words(1, true))
                 ->setLenght($faker->numberBetween(1, 7));
+
             $manager->persist($song);
         }
         $manager->flush();

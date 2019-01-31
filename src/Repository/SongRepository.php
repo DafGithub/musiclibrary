@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Song;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -20,6 +21,26 @@ class SongRepository extends ServiceEntityRepository
         parent::__construct($registry, Song::class);
     }
 
+    /**
+     * @param Song $search
+     * @return Query
+     */
+    public function findAllVisibleQuery(Song $search): Query
+    {
+        $query = $this->findVisibleQuery();
+
+        if ($search->getStyles())
+        {
+            $styles = $search->getStyles();
+            foreach ($styles as $style)
+            {
+                echo "Style sélectionné : ".$style->getTitle();
+            }
+
+        }
+            return $query
+                ->getQuery();
+    }
 
     /**
      * @return Song[]
@@ -34,7 +55,6 @@ class SongRepository extends ServiceEntityRepository
             ->orderBy('song.id', 'DESC')
             ->getQuery()
             ->getResult();
-
     }
 
     /**
@@ -45,7 +65,6 @@ class SongRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('song');
 
     }
-
 
 //    /**
 //     * @return Song[] Returns an array of Song objects
