@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Song;
+use App\Entity\SongSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
@@ -22,22 +23,30 @@ class SongRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param Song $search
+     * @param SongSearch $search
      * @return Query
      */
-    public function findAllVisibleQuery(Song $search): Query
+    public function findAllVisibleQuery(SongSearch $search): Query
     {
+
+//        dump($search);
         $query = $this->findVisibleQuery();
 
-        if ($search->getStyles())
+        if ($search->getStyles()->count() > 0)
         {
-            $styles = $search->getStyles();
-            foreach ($styles as $style)
+
+            foreach ($search->getStyles() as $key=>$style)
             {
-                echo "Style sélectionné : ".$style->getTitle();
+                $query = $query
+                    -> andWhere(":style$key MEMBER OF song.styles")
+                    -> setParameter("style$key", $style);
             }
 
         }
+
+
+
+
             return $query
                 ->getQuery();
     }

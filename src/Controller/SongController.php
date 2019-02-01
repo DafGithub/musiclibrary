@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Song;
+use App\Entity\SongSearch;
 use App\Form\SongSearchType;
 use App\Repository\SongRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -35,7 +35,7 @@ class SongController extends AbstractController
      */
     public function index(PaginatorInterface $paginator, Request $request): Response
     {
-        $search = new Song();
+        $search = new SongSearch();
         $form = $this->createForm(SongSearchType::class, $search);
         $form->handleRequest($request);
 
