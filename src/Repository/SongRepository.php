@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Controller\SongController;
 use App\Entity\Song;
 use App\Entity\SongSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -24,11 +25,11 @@ class SongRepository extends ServiceEntityRepository
 
     /**
      * @param SongSearch $search
+     * @param $value
      * @return Query
      */
-    public function findAllVisibleQuery(SongSearch $search): Query
+    public function findAllVisibleQuery(SongSearch $search, $value): Query
     {
-
 //        dump($search);
         $query = $this->findVisibleQuery();
 
@@ -41,12 +42,18 @@ class SongRepository extends ServiceEntityRepository
                     -> andWhere(":style$key MEMBER OF song.styles")
                     -> setParameter("style$key", $style);
             }
-
         }
 
+        if ($search->getTitles())
+        {
+//            $value ="ea";
 
-
-
+            $query = $query
+                ->andWhere('song.name = :val')
+                ->setParameter('val', $value)
+                ->orderBy('song.id', 'ASC')
+                ;
+        }
             return $query
                 ->getQuery();
     }
@@ -103,4 +110,6 @@ class SongRepository extends ServiceEntityRepository
         ;
     }
     */
+
 }
+

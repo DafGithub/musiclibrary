@@ -14,13 +14,21 @@ class SongSearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+
             ->add('styles',EntityType::class, [
-                'class' => MusicStyle::class,
-                'choice_label'=>'title',
                 'required'=>false,
+                'label'=>false,
+                'class' => MusicStyle::class,
                 'multiple' => true,
-                'expanded' => true,
-            ]);
+            ])
+
+            ->add('titles', null, [
+                'required'=>false,
+                'label'=>false,
+            ])
+            ;
+
+
 
     }
 

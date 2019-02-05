@@ -1,9 +1,4 @@
 <?php
-/**
- * User: davidf
- * Date: 31/01/2019
- * Time: 11:44
- */
 
 namespace App\Entity;
 
@@ -16,6 +11,11 @@ class SongSearch
      * @var ArrayCollection
      */
     private $styles;
+
+    /**
+     * @var string
+     */
+    private $titles;
 
     public function __construct()
     {
@@ -37,4 +37,26 @@ class SongSearch
     {
         $this->styles = $styles;
     }
+
+    /**
+     * @return string
+     */
+    public function getTitles(): ?string
+    {
+        return $this->titles;
+    }
+
+    /**
+     * @param string $titles
+     */
+    public function setTitles(string $titles): void
+    {
+        $this->titles = $titles;
+    }
+
+    public function __toString()
+    {
+        return $this->titles;
+    }
+
 }

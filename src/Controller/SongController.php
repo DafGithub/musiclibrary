@@ -31,6 +31,8 @@ class SongController extends AbstractController
 
     /**
      * @Route("/song", name="song")
+     * @param PaginatorInterface $paginator
+     * @param Request $request
      * @return Response
      */
     public function index(PaginatorInterface $paginator, Request $request): Response
@@ -38,13 +40,11 @@ class SongController extends AbstractController
         $search = new SongSearch();
         $form = $this->createForm(SongSearchType::class, $search);
         $form->handleRequest($request);
-
         $songs = $paginator->paginate(
-            $this->repository->findAllVisibleQuery($search),
+            $this->repository->findAllVisibleQuery($search, $form->getData()),
             $request->query->getInt('page', 1),
             12
         );
-
 
         return $this->render('song/index.html.twig', [
             'current_menu' => 'songs',
@@ -52,4 +52,6 @@ class SongController extends AbstractController
             'form'=> $form -> createView(),
         ]);
     }
+
+
 }
