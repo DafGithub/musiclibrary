@@ -25,6 +25,9 @@ class SongSearchType extends AbstractType
             ->add('titles', null, [
                 'required'=>false,
                 'label'=>false,
+                'attr'=>[
+                    'placeholder'=>'Mot-clé...'
+                ]
             ])
             ;
 

@@ -1,0 +1,8 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        audio_file:
+            uri_prefix: /audiofiles/songs
+            upload_destination: '%kernel.project_dir%/public/audiofiles/songs'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer

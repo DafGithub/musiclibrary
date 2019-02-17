@@ -9,9 +9,15 @@
 easy_admin:
     entities:
     # List the entity class name you want to manage
-
         Song:
             class: App\Entity\Song
+            form:
+                fields:
+                    - name
+                    - styles
+                    - artists
+                    - { property: 'audioFile', label: 'AudioFile', type: 'vich_file', type_options: {required: false, allow_delete: false}}
+
         Artist :
             class: App\Entity\Artist
         MusicStyle :
@@ -28,12 +34,15 @@ easy_admin:
             - { entity: 'Song', icon: 'music' }
             - { entity: 'Artist', icon: 'male' }
             - { entity: 'MusicStyle',label: 'Style', icon: 'globe' }
-
+        form_theme:
+            - '@EasyAdmin/form/bootstrap_4.html.twig'
+            - '@VichUploader/Form/fields.html.twig'
         assets:
             css:
-            - 'bundles/easyadmin/bootstrap-all.css'
+                - 'bundles/easyadmin/bootstrap-all.css'
             js:
-            - 'bundles/easyadmin/bootstrap-all.js'
+                - 'bundles/easyadmin/bootstrap-all.js'
+
 
     formats:
         date:     'd/m/Y'

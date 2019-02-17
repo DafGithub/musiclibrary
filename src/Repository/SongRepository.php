@@ -2,7 +2,6 @@
 
 namespace App\Repository;
 
-use App\Controller\SongController;
 use App\Entity\Song;
 use App\Entity\SongSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -49,8 +48,8 @@ class SongRepository extends ServiceEntityRepository
 //            $value ="ea";
 
             $query = $query
-                ->andWhere('song.name = :val')
-                ->setParameter('val', $value)
+                ->andWhere('song.name LIKE :val')
+                ->setParameter('val', "%".$value."%")
                 ->orderBy('song.id', 'ASC')
                 ;
         }
@@ -68,7 +67,7 @@ class SongRepository extends ServiceEntityRepository
             ->innerJoin('song.artists', 'artists')
             ->innerJoin('song.styles', 'styles')
             ->setMaxResults(10)
-            ->orderBy('song.id', 'DESC')
+            ->orderBy('song.id', 'ASC')
             ->getQuery()
             ->getResult();
     }

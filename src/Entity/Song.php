@@ -5,9 +5,14 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SongRepository")
+ * @Vich\Uploadable()
+
  */
 class Song
 {
@@ -17,6 +22,18 @@ class Song
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @var string|null
+     * @ORM\Column(type="string", length= 255)
+     */
+    private $filename;
+
+    /**
+     * @var File|null
+     * @Vich\UploadableField(mapping="audio_file", fileNameProperty="filename")
+     */
+    private $audioFile;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -37,6 +54,12 @@ class Song
      * @ORM\ManyToMany(targetEntity="App\Entity\Artist", inversedBy="songs")
      */
     private $artists;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @var \DateTime|null
+     */
+    private $updated_at;
 
     public function __construct()
     {
@@ -100,15 +123,6 @@ class Song
         return $this;
     }
 
-
-
-
-
-    public function __toString()
-    {
-        return $this->name;
-    }
-
     /**
      * @return Collection|Artist[]
      */
@@ -131,6 +145,63 @@ class Song
         if ($this->artists->contains($artist)) {
             $this->artists->removeElement($artist);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFilename(): ?string
+    {
+        return $this->filename;
+    }
+
+    /**
+     * @param null|string $filename
+     * @return Song
+     */
+    public function setFilename(?string $filename): Song
+    {
+        $this->filename = $filename;
+        return $this;
+    }
+
+    /**
+     * @return null|File
+     */
+    public function getAudioFile(): ?File
+    {
+        return $this->audioFile;
+    }
+
+    /**
+     * @param null|File $audioFile
+     * @return Song
+     */
+    public function setAudioFile(?File $audioFile): Song
+    {
+        $this->audioFile = $audioFile;
+
+        if ($this->audioFile instanceof UploadedFile) {
+            $this->updated_at = new \DateTime('now');
+        }
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
 
         return $this;
     }

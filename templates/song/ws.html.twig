@@ -1,0 +1,102 @@
+{% for song in songs %}
+    <h5 class="mt-5">{{ song.name }}</h5>
+    <br/>
+    Artiste :
+    {% for artist in song.artists %}
+        {{ artist.alias }}
+    {% endfor %}
+    <br/>
+
+    Style :
+    {% for style in song.styles %}
+        {{ style.title }}
+    {% endfor %}
+    <br/>
+
+    Durée : <span id="waveform__duration{{ song.id }}"></span> min
+
+    <div>
+        {% if song.filename %}
+            <div id="waveform{{ song.id }}" class="wafesurfer-block mt-4" data-audio-file="{{ vich_uploader_asset(song, 'audioFile') }}" style="position: relative"></div>
+            <div class="controls">
+                <div class="mt-4" style="display: flex; justify-content: center">
+                    <button class="btn btn-primary" data-action="play{{ song.id }}">
+                        <i class="glyphicon glyphicon-play"></i>
+                        Play /
+                        <i class="glyphicon glyphicon-pause"></i>
+                        Pause
+                    </button>
+                    <div id="waveform__counter{{ song.id }}" style="margin: auto"></div>
+                </div>
+            </div>
+            <script>
+                var wavesurfer{{ song.id }} = WaveSurfer.create({
+                    container: '#waveform{{ song.id }}',
+                    waveColor: 'violet',
+                    progressColor: 'purple',
+                    scrollParent: false,
+
+                    plugins: [
+                        WaveSurfer.cursor.create({
+                            showTime: true,
+                            opacity: 1,
+                            customShowTimeStyle: {
+                                'background-color': '#5d82ee',
+                                color: '#fff',
+                                padding: '2px',
+                                'font-size': '10px',
+                                zIndex: 0
+                            }
+                        }),
+
+                        WaveSurfer.regions.create({
+                            dragSelection: true,
+                        })
+
+                    ]
+                });
+                wavesurfer{{ song.id }}.load('{{ vich_uploader_asset(song, 'audioFile') }}');
+                button = document.querySelector('[data-action="play{{ song.id }}"]');
+                button.addEventListener('click', wavesurfer{{ song.id }}.playPause.bind(wavesurfer{{ song.id }}));
+
+                // wavesurfer.on('region-click', function(region, e) {
+                //     e.stopPropagation();
+                //     // Play on click, loop on shift click
+                //     e.shiftKey ? region.playLoop() : region.play();
+                //     e.altKey ? region.remove() : '';
+                // });
+
+                wavesurfer{{ song.id }}.on('region-click', function (region, e){
+                    e.stopPropagation();
+
+                        if (e.altKey){
+                            region.remove();
+                        }
+                        if (e.shiftKey){
+                            region.playLoop();
+                        }
+
+                });
+
+                var formatTime = function (time) {
+                    return [
+                        Math.floor((time % 3600) / 60), // minutes
+                        ('00' + Math.floor(time % 60)).slice(-2) // seconds
+                    ].join(':');
+                };
+
+                // Show current time
+                wavesurfer{{ song.id }}.on('audioprocess', function () {
+                    $('#waveform__counter{{ song.id }}').text( formatTime(wavesurfer{{ song.id }}.getCurrentTime()) );
+                });
+
+                // Show clip duration
+                wavesurfer{{ song.id }}.on('ready', function () {
+                    $('#waveform__duration{{ song.id }}').text( formatTime(wavesurfer{{ song.id }}.getDuration()) );
+                });
+
+            </script>
+        {% endif %}
+        <hr>
+    </div>
+{% endfor %}
