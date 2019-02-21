@@ -1,34 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title 'Rechercher une musique'%}
+{% block title 'Rechercher une musique' %}
 
 {% block body %}
 
-<div class="jumbotron">
-    <div class="container">
-        {{ form_start(form) }}
-        <div class="form-row align-items-end">
-            <div class="col">
-                {#<h6>Recherche par style : </h6>#}
-                {{ form_row(form.styles) }}
-            </div>
-            <div class="col">
-                {#<h6>Recherche par mot-clé : </h6>#}
-                {{ form_row(form.titles) }}
-            </div>
-            <div class="col">
-                <div class="form-group">
-                    <button class="btn btn-primary">Rechercher</button>
+    <div class="jumbotron">
+        <div class="container">
+            {{ form_start(form) }}
+            <div class="form-row align-items-end">
+                <div class="col">
+                    {{ form_row(form.styles) }}
+                </div>
+                <div class="col">
+                    {{ form_row(form.titles) }}
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <button class="btn btn-primary">Rechercher</button>
+                    </div>
                 </div>
             </div>
+            {{ form_end(form) }}
         </div>
-        {{ form_end(form) }}
     </div>
-</div>
     <div class="container mt-4">
         <h1>Tous les morceaux de musique</h1>
 
-        {{ include('song/ws.html.twig') }}
+        {{ include('song/_ws.html.twig') }}
 
         <div class="pagination">
             {{ knp_pagination_render(songs) }}
@@ -36,6 +34,9 @@
     </div>
 
 {% endblock %}
+{#{% block javascripts %}#}
+    {#{{ parent() }}#}
+{#{% endblock %}#}
 
 
 

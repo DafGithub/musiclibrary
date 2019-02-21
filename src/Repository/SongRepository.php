@@ -66,8 +66,8 @@ class SongRepository extends ServiceEntityRepository
             ->addSelect('styles, artists')
             ->innerJoin('song.artists', 'artists')
             ->innerJoin('song.styles', 'styles')
-            ->setMaxResults(10)
-            ->orderBy('song.id', 'ASC')
+            ->setMaxResults(5)
+            ->orderBy('song.id', 'DESC')
             ->getQuery()
             ->getResult();
     }

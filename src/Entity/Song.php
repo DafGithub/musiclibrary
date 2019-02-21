@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SongRepository")
@@ -34,6 +35,19 @@ class Song
      * @Vich\UploadableField(mapping="audio_file", fileNameProperty="filename")
      */
     private $audioFile;
+
+    /**
+     * @var string|null
+     * @ORM\Column(type="string", length= 255)
+     */
+    private $artworkFilename;
+
+    /**
+     * @var File|null
+     * @Assert\Image(mimeTypes="image/jpeg")
+     * @Vich\UploadableField(mapping="artwork_file", fileNameProperty="artworkFilename")
+     */
+    private $artwork;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -189,10 +203,7 @@ class Song
         return $this;
     }
 
-    public function __toString()
-    {
-        return $this->name;
-    }
+
 
     public function getUpdatedAt(): ?\DateTimeInterface
     {
@@ -205,5 +216,51 @@ class Song
 
         return $this;
     }
+
+    /**
+     * @return null|string
+     */
+    public function getArtworkFilename(): ?string
+    {
+        return $this->artworkFilename;
+    }
+
+    /**
+     * @param null|string $artworkFilename
+     * @return Song
+     */
+    public function setArtworkFilename(?string $artworkFilename): Song
+    {
+        $this->artworkFilename = $artworkFilename;
+        return $this;
+    }
+
+
+    /**
+     * @return null|File
+     */
+    public function getArtwork(): ?File
+    {
+        return $this->artwork;
+    }
+
+    /**
+     * @param File $artwork
+     * @return Song
+     */
+    public function setArtwork(File $artwork): Song
+    {
+        $this->artwork = $artwork;
+        if ($this->artwork instanceof UploadedFile) {
+            $this->updated_at = new \DateTime('now');
+        }
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
+
 
 }

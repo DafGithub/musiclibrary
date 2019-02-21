@@ -11,17 +11,24 @@ easy_admin:
     # List the entity class name you want to manage
         Song:
             class: App\Entity\Song
+            list:
+                fields: ['name','artists','styles', 'updated_at']
             form:
                 fields:
                     - name
                     - styles
                     - artists
                     - { property: 'audioFile', label: 'AudioFile', type: 'vich_file', type_options: {required: false, allow_delete: false}}
+                    - { property: 'artwork', label: 'Artwork', type: 'vich_file', type_options: {required: false, allow_delete: false}}
 
         Artist :
             class: App\Entity\Artist
+            list:
+                fields: ['firstname','lastname', 'alias', 'songs' ]
         MusicStyle :
             class: App\Entity\MusicStyle
+            list:
+                fields: ['title', 'songs']
 
     site_name: 'Music Library'
 #    site_name: '<img src="https://symfony.com/logos/symfony_white_01.png" />'
