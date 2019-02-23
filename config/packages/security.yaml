@@ -16,8 +16,18 @@ security:
             security: false
         main:
             anonymous: true
+            pattern: ^/
+            provider: app_user_provider
+            form_login:
+                login_path: app_login
+                check_path: app_login
+                csrf_token_generator: security.csrf.token_manager
+#                success_handler:
+
             logout:
                 path: logout
+                target: app_login
+
             guard:
                 authenticators:
                     - App\Security\LoginFormAuthenticator
@@ -34,5 +44,8 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
-#        - { path: ^/member, roles: ROLE_USER }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/member, roles: ROLE_USER }
+#        - { path: ^/profile, roles: ROLE_USER }
+
+
+

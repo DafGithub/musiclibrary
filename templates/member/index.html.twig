@@ -6,13 +6,9 @@
 
     <div class="jumbotron text-center">
         <h1>Music Library</h1>
-        {% if is_granted('ROLE_USER') %}
-            <h4>Welcome {{ app.user.username }}</h4>
-        {% endif %}
     </div>
     <div class="container">
-        <h2 class="mb-5">The latest songs :</h2>
-        {{ include('song/_ws.html.twig') }}
+        <h2 class="mb-5">Member section:</h2>
     </div>
 
 {% endblock %}

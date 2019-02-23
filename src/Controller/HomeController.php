@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\SongRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,6 +13,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      * @param SongRepository $songRepository
+     * @param User $user
      * @return Response
      */
     public function index(SongRepository $songRepository) : Response

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title 'Rechercher une musique' %}
+{% block title 'Search' %}
 
 {% block body %}
 
@@ -16,7 +16,7 @@
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <button class="btn btn-primary">Rechercher</button>
+                        <button class="btn btn-primary">Search</button>
                     </div>
                 </div>
             </div>
@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="container mt-4">
-        <h1>Tous les morceaux de musique</h1>
+        <h2 class="mb-5">All songs</h2>
 
         {{ include('song/_ws.html.twig') }}
 
