@@ -75,6 +75,7 @@ class Song
      */
     private $updated_at;
 
+
     public function __construct()
     {
         $this->styles = new ArrayCollection();
@@ -261,6 +262,8 @@ class Song
     {
         return $this->name;
     }
+
+
 
 
 }

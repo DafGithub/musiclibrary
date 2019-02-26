@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Music Library{% endblock %}
+{% block title %}MuLib{% endblock %}
 
 {% block body %}
 
     <div class="jumbotron text-center">
-        <h1>Music Library</h1>
-        {% if is_granted('ROLE_USER') %}
+        <h1>MuLib</h1>
+        {% if app.user%}
             <h4>Welcome {{ app.user.username }}</h4>
         {% endif %}
     </div>

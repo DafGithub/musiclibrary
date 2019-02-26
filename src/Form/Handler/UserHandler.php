@@ -11,6 +11,7 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Routing\Annotation\Route;
 
 class UserHandler
 {
@@ -49,7 +50,7 @@ class UserHandler
             $user->setUsername($userModel->username);
             $user->setEmail($userModel->email);
             $user->setPassword($userModel->password);
-            $user ->setRoles(['ROLE_USER']);
+            $user->setRoles(['ROLE_USER']);
 
             $passEncoded = $encoder->encodePassword($user, $userModel->password);
             $user->setPassword($passEncoded);
@@ -72,6 +73,15 @@ class UserHandler
 
         return false;
 
+    }
+
+    /**
+     * @param $user
+     */
+    public function delete($user)
+    {
+        $this->objectManager->remove($user);
+        $this->objectManager->flush();
     }
 
 

@@ -33,12 +33,13 @@
                         <button type="button" class="btn btn-primary play-button" data-action="play">
                             <span class="fas fa-play"></span>
                         </button>
-                        <button type="button" class="btn btn-primary">
-                            <i class="fas fa-arrow-down"></i>
-                        </button>
-                        <button type="button" class="btn btn-primary">
+                        {#<button type="button" class="btn btn-primary">#}
+                            {#<i class="fas fa-arrow-down"></i>#}
+                        {#</button>#}
+                        {#<a class="fas fa-heart btn btn-primary nav-link" href=""></a>#}
+                        <a href="{{ path('addfavorite', {id: song.id}) }}" class="btn btn-primary ajaxLink">
                             <i class="fas fa-heart"></i>
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>

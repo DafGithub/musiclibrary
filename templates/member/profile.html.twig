@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+
+    <div class="jumbotron text-center">
+        <h1>User Profile</h1>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <H6> Firstname : {{ app.user.firstname }}</H6>
+                <H6> Lastname : {{ app.user.lastname }}</H6>
+                <H6> Username : {{ app.user.username }}</H6>
+                <H6> Email : {{ app.user.email }}</H6>
+                <div>
+                    <button type="button" class="btn btn-primary btn-sm">Edit my profile</button>
+                    <a href="{{ path('deleteprofile') }}" class="btn btn-primary btn-sm ">Delete my profile</a>
+
+                    {#<a href="{{ path('delete_route_name', {'id': entity.id }) }}" class="btn btn-primary btn-sm" >Delete</a>#}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

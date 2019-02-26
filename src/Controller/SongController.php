@@ -43,7 +43,7 @@ class SongController extends AbstractController
         $songs = $paginator->paginate(
             $this->repository->findAllVisibleQuery($search, $form->getData()),
             $request->query->getInt('page', 1),
-            8
+            4
         );
 
         return $this->render('song/index.html.twig', [

@@ -1,53 +1,93 @@
-// // import
-// import WaveSurfer from 'wavesurfer.js';
-//
-// import CursorPlugin from 'wavesurfer.js/src/plugin/cursor.js'
-// import RegionPlugin from 'wavesurfer.js/src/plugin/regions.js'
-//
-// $(".wavesurfer-block").each(()=>{
-//
-//     let container = document.getElementById($(this).id);
-//
-//     let wavesurfer = WaveSurfer.create({
-//         container: container,
-//         waveColor: 'violet',
-//         progressColor: 'purple',
-//         scrollParent: true,
-//
-//         plugins: [
-//             CursorPlugin.create({
-//                 showTime: true,
-//                 opacity: 1,
-//                 customShowTimeStyle: {
-//                     'background-color': '#000',
-//                     color: '#fff',
-//                     padding: '2px',
-//                     'font-size': '10px',
-//                     zIndex: 0
-//                 }
-//             }),
-//
-//             RegionPlugin.create({
-//                 dragSelection: {
-//                     slop: 5
-//
-//                 }
-//             })
-//         ]
-//     });
-//     wavesurfer.load($(this).data('audioFile'));
-//     let button = $('<button class="btn btn-primary">\n' +
-//         '                                <i class="glyphicon glyphicon-play"></i>\n' +
-//         '                                Play /\n' +
-//         '                                <i class="glyphicon glyphicon-pause"></i>\n' +
-//         '                                Pause\n' +
-//         '                            </button>');
-//
-//     button.addEventListener('click', wavesurfer.playPause.bind(wavesurfer));
-//
-//     container.append(button);
-//
-// });
+
+// ---------------- Wavesurfer------------------
+
+$(function () {
+    $('.SongComponent').each(function (index, element) {
+        $waveSuferBlock = $(element).find('.wafesurfer-block:first');
+
+        var wavesurfer = WaveSurfer.create({
+            container: $waveSuferBlock.get(0),
+            waveColor: 'violet',
+            progressColor: 'purple',
+            height: 100,
+            scrollParent: false,
+            responsive: true,
+
+            plugins: [
+                WaveSurfer.cursor.create({
+                    showTime: true,
+                    opacity: 1,
+                    customShowTimeStyle: {
+                        'background-color': '#5d82ee',
+                        color: '#fff',
+                        padding: '2px',
+                        'font-size': '10px',
+                        zIndex: 0
+                    }
+                }),
+
+                WaveSurfer.regions.create({
+                    dragSelection: true,
+                })
+
+            ]
+        });
+        wavesurfer.load($waveSuferBlock.data('audioFile'));
+
+        wavesurfer.on('region-click', function (region, e) {
+            e.stopPropagation();
+
+            if (e.altKey) {
+                region.remove();
+            }
+            if (e.shiftKey) {
+                region.playLoop();
+            }
+
+        });
+
+        // Show clip duration
+        wavesurfer.on('ready', function () {
+            $(element).find('.waveform__duration').text(formatTime(wavesurfer.getDuration()));
+        });
+
+        // Show current time
+        wavesurfer.on('audioprocess', function () {
+            $(element).find('.waveform__counter').text(formatTime(wavesurfer.getCurrentTime()));
+        });
+
+        var $playButton = $(element).find('.play-button');
+        $playButton.on('click',function (){
+            wavesurfer.playPause();
+            $(this).find('.fa-play').toggleClass('fa-pause');
+            $(this).find('.fa-pause').toggleClass('fa-play');
+        });
+
+    });
+
+    var formatTime = function (time) {
+        return [
+            Math.floor((time % 3600) / 60), // minutes
+            ('00' + Math.floor(time % 60)).slice(-2) // seconds
+        ].join(':');
+    };
 
 
+});
 
+    $('a.ajaxLink').each(function(index,element){
+
+        $(element).click(function(e){
+            e.preventDefault();
+            $.ajax( $(this).attr('href'))
+                .done(function() {
+                    alert( "success" );
+                })
+                .fail(function() {
+                    alert( "error" );
+                })
+                .always(function() {
+                    alert( "complete" );
+                });
+        });
+    });

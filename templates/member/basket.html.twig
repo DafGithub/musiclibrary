@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Basket{% endblock %}
+
+
+{% block body %}
+
+<div class="jumbotron text-center">
+    <h1>Basket</h1>
+    <h5>Your favorites</h5>
+</div>
+<div class="container">
+
+
+    {% for song in app.user.favorites %}
+    <p>{{ song.name }}</p>
+    {% else %}
+        <p> Il n'y pas de favoris</p>
+    {% endfor %}
+</div>
+
+{% endblock %}
+
