@@ -1,39 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Login{% endblock %}
+{% block welcomepic %}{% endblock %}
 
 {% block body %}
-    <div class="container">
+
+<div class="animsition" data-animsition-in-class="zoom-in-sm"
+     data-animsition-in-duration="1000"
+     data-animsition-out-class="zoom-out-sm"
+     data-animsition-out-duration="800" >
+
+
+    <div class="container mt90">
 
         <form method="post">
             {% if error %}
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
 
-            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-            <label for="inputUsername" class="sr-only">Username</label>
-            <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+            <div id="signin">
 
-            <input type="hidden" name="_csrf_token"
-                   value="{{ csrf_token('authenticate') }}"
-            >
+                <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+                <label for="inputUsername" class="sr-only">Username</label>
+                <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
+                <label for="inputPassword" class="sr-only">Password</label>
+                <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
 
-            {#
-                Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-                See https://symfony.com/doc/current/security/remember_me.html
+                <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}"
+                >
+            </div>
 
-                <div class="checkbox mb-3">
-                    <label>
-                        <input type="checkbox" name="_remember_me"> Remember me
-                    </label>
-                </div>
-            #}
-
-            <button class="btn btn-lg btn-primary" type="submit">Sign in </button>
-            <a class="btn btn-lg btn-primary" href="{{ path('app_register') }}">Register</a>
+            <div class="mbr-section-btn align-center">
+                <button class="btn btn-md btn-black-outline display-4 btnr" type="submit">
+                    <span class="mbri-login mbr-iconfont mbr-iconfont-btn"></span>Sign in</button>
+                <a class="btn btn-md btn-black-outline display-4" href="{{ path('app_register') }}"><span class="mbri-sites mbr-iconfont mbr-iconfont-btn"></span>Register</a>
+            </div>
         </form>
     </div>
-
+</div>
 {% endblock %}
+{% block footer %}{% endblock %}

@@ -3,18 +3,15 @@
 {% block title %}MuLib{% endblock %}
 
 {% block body %}
-
-    <div class="jumbotron text-center">
-        <h1>MuLib</h1>
+    <div class="text-center mt-5">
         {% if app.user%}
-            <h4>Welcome {{ app.user.username }}</h4>
+            <h5>Welcome {{ app.user.username }} </h5>
         {% endif %}
     </div>
     <div class="container">
-        <h2 class="mb-5">The latest songs :</h2>
+        <h2 class="mb-5 mt90 text-center">The latest songs</h2>
         {{ include('song/_ws.html.twig') }}
     </div>
-
 {% endblock %}
 
 

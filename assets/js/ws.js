@@ -83,11 +83,11 @@ $(function () {
                 .done(function() {
                     alert( "success" );
                 })
-                .fail(function() {
-                    alert( "error" );
-                })
-                .always(function() {
-                    alert( "complete" );
-                });
+                // .fail(function() {
+                //     alert( "error" );
+                // })
+                // .always(function() {
+                //     alert( "complete" );
+                // });
         });
     });

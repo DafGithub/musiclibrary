@@ -24,11 +24,11 @@ class RegisterType extends AbstractType
             ->add('password', RepeatedType::class, array(
                 'type'=>PasswordType::class,
                 'first_options'=> array('label'=>false,'attr'=>['placeholder'=>'Password']),
-                'second_options'=> array('label'=>false,'attr'=>['placeholder'=>'Type your password again']),
+                'second_options'=> array('label'=>false,'attr'=>['placeholder'=>'Confirm password']),
             ))
             ->add('submit', SubmitType::class, [
                 'label'=> 'Submit',
-                'attr'=>['class'=>'btn btn-primary btn-lg']
+                'attr'=>['class'=>'btn btn-md btn-black-outline display-4 btnr']
             ])
         ;
     }

@@ -201,7 +201,6 @@ class User implements UserInterface
         if (!$this->favorites->contains($song)) {
             $this->favorites[] = $song;
         }
-
         return $this;
     }
 
@@ -210,7 +209,6 @@ class User implements UserInterface
         if ($this->favorites->contains($song)) {
             $this->favorites->removeElement($song);
         }
-
         return $this;
     }
 

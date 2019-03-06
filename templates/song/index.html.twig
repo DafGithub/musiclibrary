@@ -1,37 +1,45 @@
 {% extends 'base.html.twig' %}
 
 {% block title 'Search' %}
+{% block welcomepic %}
+    <div class="animsition" data-animsition-in-class="fade-in"
+         data-animsition-in-duration="1000"
+         data-animsition-out-class="fade-out"
+         data-animsition-out-duration="800">
 
-{% block body %}
+        <section class=" jarallax background-image top-bar ">
 
-    <div class="jumbotron">
-        <div class="container">
-            {{ form_start(form) }}
-            <div class="form-row align-items-end">
-                <div class="col">
-                    {{ form_row(form.styles) }}
-                </div>
-                <div class="col">
-                    {{ form_row(form.titles) }}
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <button class="btn btn-primary">Search</button>
+            <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(35, 35, 35);">
+            </div>
+            <div class="container">
+                <div class="row justify-content-md-center">
+                    <div class="col-md-6">
+                        {{ form_start(form) }}
+                                {{ form_row(form.styles) }}
+                                {{ form_row(form.titles) }}
+                        <div class="align-center">
+                            <button class="btn btn-md btn-white-outline display-4 btnr">Search</button>
+                        </div>
+                        {{ form_end(form) }}
                     </div>
                 </div>
             </div>
-            {{ form_end(form) }}
+        </section>
+
+{% endblock %}
+
+{% block body %}
+        <div class="container mt-4">
+            <h2 class="mb-5">All songs</h2>
+
+            {{ include('song/_ws.html.twig') }}
+
+            <div class="pagination">
+                {{ knp_pagination_render(songs) }}
+            </div>
         </div>
     </div>
-    <div class="container mt-4">
-        <h2 class="mb-5">All songs</h2>
 
-        {{ include('song/_ws.html.twig') }}
-
-        <div class="pagination">
-            {{ knp_pagination_render(songs) }}
-        </div>
-    </div>
 {% endblock %}
 
 

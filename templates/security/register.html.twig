@@ -1,21 +1,32 @@
 {% extends 'base.html.twig' %}
+{% block title %}Register{% endblock %}
+{% block welcomepic %}{% endblock %}
 
 {% block body %}
 
-    <div class="container">
+<div class="animsition" data-animsition-in-class="zoom-in-sm"
+     data-animsition-in-duration="1000"
+     data-animsition-out-class="zoom-out-sm"
+     data-animsition-out-duration="800" >
+
+    <div class="container mt90">
+
         <div class="row">
-            <div class="col">
-                <div class="col-xs-12">
+            <div class="col-lg-8 m-auto text-center">
+                <div class="mb-5">
                     <h1>Register form</h1>
-                    {{ form(form) }}
                 </div>
+                {{ form(form) }}
             </div>
         </div>
+
     </div>
 
+</div>
+
+
 {% endblock %}
 
-{% block title %}
+{% block footer %}{% endblock %}
 
-{% endblock %}
 

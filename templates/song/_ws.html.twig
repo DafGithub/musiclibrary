@@ -9,37 +9,31 @@
 
         <div class="col-md-2">
             <h5>{{ song.name }}</h5>
-
             <div>
                 {% for style in song.styles %}
                     <div class="badge badge-pill badge-primary">{{ style.title }} </div>
                 {% endfor %}
             </div>
-
             Artiste :
             {% for artist in song.artists %}
                 {{ artist.alias }}
             {% endfor %}
             <br/>
-
             Durée : <span class="waveform__duration"></span> min
         </div>
 
         {% if song.filename %}
-
             <div class="col-md-2 m-auto">
                 <div class="controls">
-                    <div class="btn-group-sm" role="group">
+                    <div class="btn-group-sm text-center" role="group">
                         <button type="button" class="btn btn-primary play-button" data-action="play">
                             <span class="fas fa-play"></span>
                         </button>
-                        {#<button type="button" class="btn btn-primary">#}
-                            {#<i class="fas fa-arrow-down"></i>#}
-                        {#</button>#}
-                        {#<a class="fas fa-heart btn btn-primary nav-link" href=""></a>#}
+                        {% if app.user %}
                         <a href="{{ path('addfavorite', {id: song.id}) }}" class="btn btn-primary ajaxLink">
                             <i class="fas fa-heart"></i>
                         </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>

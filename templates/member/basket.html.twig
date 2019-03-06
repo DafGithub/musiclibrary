@@ -1,23 +1,88 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Basket{% endblock %}
+{% block title %}Favorites{% endblock %}
+{% block welcomepic %}
 
+    <div class="animsition" data-animsition-in-class="fade-in"
+         data-animsition-in-duration="1000"
+         data-animsition-out-class="fade-out"
+         data-animsition-out-duration="800">
 
-{% block body %}
-
-<div class="jumbotron text-center">
-    <h1>Basket</h1>
-    <h5>Your favorites</h5>
-</div>
-<div class="container">
-
-
-    {% for song in app.user.favorites %}
-    <p>{{ song.name }}</p>
-    {% else %}
-        <p> Il n'y pas de favoris</p>
-    {% endfor %}
-</div>
+        <section class="jarallax background-image top-bar ">
+            <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(35, 35, 35);">
+            </div>
+            <div class="container">
+                <div class="mbr-section-btn align-center">
+                    <a href="{{ path('song') }}" class="btn btn-md btn-white-outline display-4">
+                        <span class="mbri-play mbr-iconfont mbr-iconfont-btn"></span>Browse</a>
+                </div>
+            </div>
+        </section>
+    </div>
 
 {% endblock %}
 
+
+{% block body %}
+    <div class="container mt90">
+        {% for song in app.user.favorites %}
+            <div class="row mb-4 SongComponent">
+
+                <div class="col-md-2 mt-auto mb-auto">
+                    <img src="{{ vich_uploader_asset(song, 'artwork')| imagine_filter('thumb') }}" alt=""
+                         style="width: 100%; height: auto">
+                </div>
+
+                <div class="col-md-2">
+                    <h5>{{ song.name }}</h5>
+                    <div>
+                        {% for style in song.styles %}
+                            <div class="badge badge-pill badge-primary">{{ style.title }} </div>
+                        {% endfor %}
+                    </div>
+                    Artiste :
+                    {% for artist in song.artists %}
+                        {{ artist.alias }}
+                    {% endfor %}
+                    <br/>
+                    Durée : <span class="waveform__duration"></span> min
+                </div>
+
+                {% if song.filename %}
+                    <div class="col-md-2 m-auto">
+                        <div class="controls">
+                            <div class="btn-group-sm text-center" role="group">
+                                <button type="button" class="btn btn-primary play-button" data-action="play">
+                                    <span class="fas fa-play"></span>
+                                </button>
+                                {% if app.user %}
+                                    <a href="{{ path('addfavorite', {id: song.id}) }}" class="btn btn-primary ajaxLink">
+                                        <i class="fas fa-heart-broken"></i>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div id="waveform{{ song.id }}" class="wafesurfer-block mt-4"
+                             data-audio-file="{{ vich_uploader_asset(song, 'audioFile') }}"
+                             style="position: relative">
+                        </div>
+                        <div class="waveform__counter" style="position: absolute"></div>
+                    </div>
+
+
+                {% endif %}
+            </div>
+            <hr>
+
+        {% else %}
+            <p> Il n'y pas de favoris</p>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}
+
+{% block footer %}{% endblock %}

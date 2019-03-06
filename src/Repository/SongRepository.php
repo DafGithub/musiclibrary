@@ -62,14 +62,24 @@ class SongRepository extends ServiceEntityRepository
      */
     public function findLatest(): array
     {
-        return $this->findVisibleQuery()
-//            ->addSelect('styles, artists')
-//            ->innerJoin('song.artists', 'artists')
-//            ->innerJoin('song.styles', 'styles')
-            ->setMaxResults(3)
+        $ids =  $this->findVisibleQuery()
+            ->select('DISTINCT(song.id) as id')
+            ->innerJoin('song.artists', 'artists')
+            ->innerJoin('song.styles', 'styles')
+            ->setMaxResults(4)
             ->orderBy('song.id', 'DESC')
             ->getQuery()
+            ->getScalarResult();
+
+        return $this->findVisibleQuery()->innerJoin('song.artists', 'artists')
+            ->addSelect('styles, artists')
+            ->innerJoin('song.styles', 'styles')
+            ->orderBy('song.id', 'DESC')
+            ->where(('song.id IN (:ids)'))
+            ->setParameter('ids', $ids)
+            ->getQuery()
             ->getResult();
+
     }
 
     /**

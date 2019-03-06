@@ -2,3 +2,85 @@
 .pagination {
     justify-content: center;
 }
+
+.mt90{
+    margin-top: 90px;
+}
+
+.btnr
+{
+    border-radius: 100px !important;
+}
+
+#searchbar
+{
+    width: 100%;
+    min-height: 300px;
+}
+
+.select2-container {
+
+    width: 100% !important;
+}
+
+.top-bar .mbr-overlay {
+    min-height: 50px; }
+
+.top-bar {
+    display: flex;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    align-items: center;
+    -webkit-align-items: center;
+    min-height: 50px;
+    padding-top: 5rem;
+    padding-bottom: 3rem; }
+
+.scrollUp {
+    border-radius: 3px;
+    padding: 10px;
+    font-size: 15px;
+    text-align: center;
+    color: #fff;
+    background: rgba(11, 5, 6, 0.12);
+    z-index: 99999;
+    transition: all ease-in 0.2s;
+    position: fixed;
+    cursor: pointer;
+    bottom: 3em;
+    right: 50px;
+    display: none;
+}
+
+.scrollUp:before {
+    content: "\25b2";
+}
+
+.scrollUp:hover {
+    background: rgb(109, 225, 255);
+
+    transition: all ease-in 0.2s;
+}
+
+.visible {
+    display: none;
+
+}
+
+#signin
+{
+    width: 70%;
+    margin: 0 auto 100px auto;
+}
+
+@media screen and (max-width: 600px)
+{
+    #signin
+    {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+}
