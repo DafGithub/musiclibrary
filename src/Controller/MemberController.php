@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Song;
 use App\Entity\User;
+use App\Form\EditProfileType;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -43,7 +45,19 @@ class MemberController extends AbstractController
         $user = $this->getUser();
         $user->addFavorite($song);
         $em->flush();
-        return $this->redirectToRoute('home');
+        return $this->redirectToRoute('basket');
+    }
+
+    /**
+     * @Route("/removefavorite/{id}", name="removefavorite")
+     */
+    public function removeFavorite(Song $song, EntityManagerInterface $em)
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        $user->removeFavorite($song);
+        $em->flush();
+        return $this->redirectToRoute('basket');
     }
 
     /**
@@ -63,6 +77,33 @@ class MemberController extends AbstractController
         $tokenStorage->setToken(null);
         $flashBag->add('success', 'Profile deleted');
         return$this->redirectToRoute('home');
+    }
+
+
+    /**
+     * @Route("/editprofile", name="editprofile")
+     * @IsGranted("ROLE_USER")
+     * @param Request $request
+     * @param UserInterface $user
+     * @param EntityManagerInterface $em
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function editProfile(Request $request,UserInterface $user, EntityManagerInterface $em)
+    {
+        $form =$this->createForm(EditProfileType::class, $user);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $em->flush();
+            $this->addFlash('success', "Profile updated");
+            return $this->redirectToRoute('profile');
+       }
+
+       return $this->render('member/edit.html.twig',[
+           'form' => $form->createView()
+       ]);
+
+
+
     }
 
 }

@@ -40,6 +40,7 @@ class SongController extends AbstractController
         $search = new SongSearch();
         $form = $this->createForm(SongSearchType::class, $search);
         $form->handleRequest($request);
+
         $songs = $paginator->paginate(
             $this->repository->findAllVisibleQuery($search, $form->getData()),
             $request->query->getInt('page', 1),

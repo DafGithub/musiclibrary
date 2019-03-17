@@ -1,4 +1,3 @@
-
 // ---------------- Wavesurfer------------------
 
 $(function () {
@@ -57,7 +56,7 @@ $(function () {
         });
 
         var $playButton = $(element).find('.play-button');
-        $playButton.on('click',function (){
+        $playButton.on('click', function () {
             wavesurfer.playPause();
             $(this).find('.fa-play').toggleClass('fa-pause');
             $(this).find('.fa-pause').toggleClass('fa-play');
@@ -75,19 +74,26 @@ $(function () {
 
 });
 
-    $('a.ajaxLink').each(function(index,element){
-
-        $(element).click(function(e){
-            e.preventDefault();
-            $.ajax( $(this).attr('href'))
-                .done(function() {
-                    alert( "success" );
-                })
-                // .fail(function() {
-                //     alert( "error" );
-                // })
-                // .always(function() {
-                //     alert( "complete" );
-                // });
-        });
-    });
+$('a.ajaxLink').click(function (e) {
+    let $_this = $(this);
+    e.preventDefault();
+    $.ajax($(this).attr('href'))
+        .done(function () {
+            $.notify({
+                message: $_this.data('successMessage')
+            }, {
+                type: 'success'
+            });
+        })
+        .fail(function () {
+            $.notify({
+                message: 'Something wrong just happened'
+            }, {
+                type: 'error'
+            });
+            ;
+        })
+    // .always(function() {
+    //     alert( "complete" );
+    // });
+});

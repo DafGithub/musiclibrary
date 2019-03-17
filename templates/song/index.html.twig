@@ -15,8 +15,8 @@
                 <div class="row justify-content-md-center">
                     <div class="col-md-6">
                         {{ form_start(form) }}
-                                {{ form_row(form.styles) }}
-                                {{ form_row(form.titles) }}
+                        {{ form_row(form.styles) }}
+                        {{ form_row(form.titles) }}
                         <div class="align-center">
                             <button class="btn btn-md btn-white-outline display-4 btnr">Search</button>
                         </div>
@@ -30,7 +30,9 @@
 
 {% block body %}
         <div class="container mt-4">
-            <h2 class="mb-5">All songs</h2>
+            <div class="mb-5 text-center">
+                <h2>All songs</h2>
+            </div>
 
             {{ include('song/_ws.html.twig') }}
 

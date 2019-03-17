@@ -84,3 +84,14 @@
     }
 
 }
+
+.profiledesign {
+    background-color: rgba(245, 245, 245, 0.52);
+    box-shadow: none;
+    color: #565656;
+    font-family: 'Rubik', sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    min-height: 3.5em;
+    padding: 1.07em .5em;
+}

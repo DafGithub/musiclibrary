@@ -30,7 +30,8 @@
                             <span class="fas fa-play"></span>
                         </button>
                         {% if app.user %}
-                        <a href="{{ path('addfavorite', {id: song.id}) }}" class="btn btn-primary ajaxLink">
+                        <a href="{{ path('addfavorite', {id: song.id}) }}" class="btn btn-primary ajaxLink" title="Add to your favorites"
+                        data-success-message="{{ song.name|e('html_attr') }} just added to your favorites">
                             <i class="fas fa-heart"></i>
                         </a>
                         {% endif %}

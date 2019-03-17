@@ -33,7 +33,6 @@ require('../../public/assets/tether/tether.min.js');
 require('../../public/assets/popper/popper.min.js');
 require('../../public/assets/theme/js/script.js');
 require('bootstrap-notify');
-
 /*
 *Jarallax
 */
@@ -47,10 +46,9 @@ global.$ = $;
 $('select').select2();
 
 
-// $.notify({
-//     // options
-//     message: 'Hello World'
-// },{
-//     // settings
-//     type: 'success'
-// });
+$('.notify').each(function (index, elt) {
+    $.notify({
+        message: $(elt).data('message')
+    }, {type: 'success'});
+    $(elt).remove();
+});

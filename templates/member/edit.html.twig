@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+{% block welcomepic %}
+
+    <section class="jarallax background-image top-bar ">
+        <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(35, 35, 35);">
+        </div>
+        <div class="container">
+            <div class="mbr-section-btn align-center">
+                <a href="{{ path('editprofile') }}" class="btn btn-md btn-white display-4">
+                    <span class="mbri-edit2 mbr-iconfont mbr-iconfont-btn"></span>Edit</a>
+                <a href="{{ path('deleteprofile') }}" class="btn btn-md btn-white-outline display-4">
+                    <span class="mbri-trash mbr-iconfont mbr-iconfont-btn"></span>Delete</a>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}
+    {% block body %}
+        <div class="container mt90">
+                <div class="col-lg-8 m-auto">
+                    <div class="mb-5 text-center">
+                        <h5>Your profile</h5>
+                    </div>
+                    {#{{ form(form) }}#}
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <div class="align-center">
+                        <button class="btn btn-md btn-black-outline display-4 btnr">Update</button>
+                    </div>
+                    {{ form_end(form) }}
+
+                </div>
+        </div>
+
+
+
+
+    {% endblock %}
+{% block footer %}{% endblock %}
+
+
+

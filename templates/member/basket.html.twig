@@ -18,13 +18,16 @@
                 </div>
             </div>
         </section>
-    </div>
 
 {% endblock %}
 
 
 {% block body %}
     <div class="container mt90">
+        <div class="text-center mb-5">
+            <h4>Your favorites</h4>
+        </div>
+
         {% for song in app.user.favorites %}
             <div class="row mb-4 SongComponent">
 
@@ -52,12 +55,15 @@
                     <div class="col-md-2 m-auto">
                         <div class="controls">
                             <div class="btn-group-sm text-center" role="group">
-                                <button type="button" class="btn btn-primary play-button" data-action="play">
+                                <button type="button" class="btn btn-primary play-button m-0" data-action="play">
                                     <span class="fas fa-play"></span>
                                 </button>
                                 {% if app.user %}
-                                    <a href="{{ path('addfavorite', {id: song.id}) }}" class="btn btn-primary ajaxLink">
+                                    <a href="{{ path('removefavorite', {id: song.id}) }}" class="btn btn-primary m-0" title="Remove from your favorites">
                                         <i class="fas fa-heart-broken"></i>
+                                    </a>
+                                    <a href="{{ path('home')}}" class="btn btn-primary m-0">
+                                        <i class="fas fa-arrow-circle-down"></i>
                                     </a>
                                 {% endif %}
                             </div>
@@ -82,6 +88,7 @@
         {% endfor %}
     </div>
 
+</div>
 
 {% endblock %}
 
