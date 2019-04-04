@@ -2,17 +2,17 @@
   "entrypoints": {
     "app": {
       "js": [
-        "http://localhost:8080/build/runtime.js",
-        "http://localhost:8080/build/app.js"
+        "/build/runtime.fa8f03f5.js",
+        "/build/app.98613914.js"
       ],
       "css": [
-        "http://localhost:8080/build/app.css"
+        "/build/app.41e012b2.css"
       ]
     },
     "ws": {
       "js": [
-        "http://localhost:8080/build/runtime.js",
-        "http://localhost:8080/build/ws.js"
+        "/build/runtime.fa8f03f5.js",
+        "/build/ws.cd32b975.js"
       ]
     }
   }
