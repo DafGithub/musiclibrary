@@ -15,7 +15,7 @@
                 <div class="mbr-section-btn align-center">
                     <a href="{{ path('editprofile') }}" class="btn btn-md btn-white display-4">
                         <span class="mbri-edit2 mbr-iconfont mbr-iconfont-btn"></span>Edit</a>
-                    <a href="{{ path('deleteprofile') }}" class="btn btn-md btn-white-outline display-4">
+                    <a href="{{ path('deleteprofile') }}" onclick="return confirm('Are you sure ?')" class="btn btn-md btn-white-outline display-4">
                         <span class="mbri-trash mbr-iconfont mbr-iconfont-btn"></span>Delete</a>
                 </div>
             </div>

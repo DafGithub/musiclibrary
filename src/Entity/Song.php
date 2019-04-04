@@ -44,7 +44,7 @@ class Song
 
     /**
      * @var File|null
-     * @Assert\Image(mimeTypes="image/jpeg")
+     * @Assert\Image(mimeTypes="image/*")
      * @Vich\UploadableField(mapping="artwork_file", fileNameProperty="artworkFilename")
      */
     private $artwork;

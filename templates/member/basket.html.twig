@@ -29,8 +29,7 @@
         </div>
 
         {% for song in app.user.favorites %}
-            <div class="row mb-4 SongComponent">
-
+            <div class="row mb-4 SongComponent" id="song{{ song.id }}">
                 <div class="col-md-2 mt-auto mb-auto">
                     <img src="{{ vich_uploader_asset(song, 'artwork')| imagine_filter('thumb') }}" alt=""
                          style="width: 100%; height: auto">
@@ -59,10 +58,14 @@
                                     <span class="fas fa-play"></span>
                                 </button>
                                 {% if app.user %}
-                                    <a href="{{ path('removefavorite', {id: song.id}) }}" class="btn btn-primary m-0" title="Remove from your favorites">
+                                    <a href="{{ path('removefavorite', {id: song.id}) }}"
+                                       class="btn btn-primary m-0 deletefavorites heart"
+                                       title="Remove from your favorites"
+                                       data-remove-id="song{{ song.id }}"
+                                       data-success-message="{{ song.name|e('html_attr') }} just removed from your favorites">
                                         <i class="fas fa-heart-broken"></i>
                                     </a>
-                                    <a href="{{ path('home')}}" class="btn btn-primary m-0">
+                                    <a href="{{ path('download_file', {'id': song.id}) }}" class="btn btn-primary m-0">
                                         <i class="fas fa-arrow-circle-down"></i>
                                     </a>
                                 {% endif %}
@@ -71,7 +74,7 @@
                     </div>
 
                     <div class="col-md-6">
-                        <div id="waveform{{ song.id }}" class="wafesurfer-block mt-4"
+                        <div {#id="waveform{{ song.id }}" #}class="wafesurfer-block mt-4"
                              data-audio-file="{{ vich_uploader_asset(song, 'audioFile') }}"
                              style="position: relative">
                         </div>
@@ -80,9 +83,8 @@
 
 
                 {% endif %}
-            </div>
-            <hr>
 
+            </div>
         {% else %}
             <p> Il n'y pas de favoris</p>
         {% endfor %}

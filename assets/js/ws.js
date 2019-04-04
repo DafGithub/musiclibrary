@@ -2,13 +2,13 @@
 
 $(function () {
     $('.SongComponent').each(function (index, element) {
-        $waveSuferBlock = $(element).find('.wafesurfer-block:first');
+        let waveSuferBlock = $(element).find('.wafesurfer-block:first');
 
-        var wavesurfer = WaveSurfer.create({
-            container: $waveSuferBlock.get(0),
-            waveColor: 'violet',
-            progressColor: 'purple',
-            height: 100,
+        let wavesurfer = WaveSurfer.create({
+            container: waveSuferBlock.get(0),
+            waveColor: '#3b66ee',
+            progressColor: '#71d2ee',
+            height: 70,
             scrollParent: false,
             responsive: true,
 
@@ -31,7 +31,7 @@ $(function () {
 
             ]
         });
-        wavesurfer.load($waveSuferBlock.data('audioFile'));
+        wavesurfer.load(waveSuferBlock.data('audioFile'));
 
         wavesurfer.on('region-click', function (region, e) {
             e.stopPropagation();
@@ -55,8 +55,8 @@ $(function () {
             $(element).find('.waveform__counter').text(formatTime(wavesurfer.getCurrentTime()));
         });
 
-        var $playButton = $(element).find('.play-button');
-        $playButton.on('click', function () {
+        let playButton = $(element).find('.play-button');
+        playButton.on('click', function () {
             wavesurfer.playPause();
             $(this).find('.fa-play').toggleClass('fa-pause');
             $(this).find('.fa-pause').toggleClass('fa-play');
@@ -64,7 +64,7 @@ $(function () {
 
     });
 
-    var formatTime = function (time) {
+    let formatTime = function (time) {
         return [
             Math.floor((time % 3600) / 60), // minutes
             ('00' + Math.floor(time % 60)).slice(-2) // seconds
@@ -72,28 +72,80 @@ $(function () {
     };
 
 
-});
+    /* ---------- AJax Link Favorites ----------*/
 
-$('a.ajaxLink').click(function (e) {
-    let $_this = $(this);
-    e.preventDefault();
-    $.ajax($(this).attr('href'))
-        .done(function () {
-            $.notify({
-                message: $_this.data('successMessage')
-            }, {
-                type: 'success'
-            });
-        })
-        .fail(function () {
-            $.notify({
-                message: 'Something wrong just happened'
-            }, {
-                type: 'error'
-            });
-            ;
-        })
-    // .always(function() {
-    //     alert( "complete" );
-    // });
+    $('a.addfavorites').click(function (e) {
+        let $_this = $(this);
+        e.preventDefault();
+
+        $.ajax($(this).attr('href'))
+            .done(function () {
+                $.notify({
+                    message: $_this.data('successMessage')
+                }, {
+                    type: 'success',
+                    placement: {
+                        from: "bottom",
+                        align: "right",
+                        },
+                    animate: {
+                         enter: 'animated fadeInUp',
+                            exit: 'animated fadeOutDown'
+                }
+                });
+
+                $_this.parents('.SongComponent').find('.fa-heart').toggleClass('fa-check-circle');
+            })
+            .fail(function () {
+                $.notify({
+                    message: 'Something wrong has just happened'
+                }, {
+                    type: 'error'
+                });
+                ;
+            })
+
+    });
+
+    $('a.deletefavorites').click(function (e) {
+        let $_this = $(this);
+        e.preventDefault();
+        $.ajax($(this).attr('href'))
+            .done(function () {
+
+                $("#"+ $_this.data('removeId')).fadeOut();
+
+                $.notify({
+                    message: $_this.data('successMessage')
+                }, {
+                    type: 'success',
+                    placement: {
+                        from: "bottom",
+                        align: "right",
+                    },
+                    animate: {
+                        enter: 'animated fadeInUp',
+                        exit: 'animated fadeOutDown'
+                    }
+                });
+            })
+
+            .fail(function () {
+                $.notify({
+                    message: 'Something wrong just happened'
+                }, {
+                    type: 'error'
+                });
+                ;
+            })
+            .always(function(){
+            })
+
+    });
+
+
+
+
+
+
 });

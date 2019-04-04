@@ -6,6 +6,7 @@ vich_uploader:
             uri_prefix: /audiofiles/songs
             upload_destination: '%kernel.project_dir%/public/audiofiles/songs'
             namer: Vich\UploaderBundle\Naming\UniqidNamer
+#            inject_on_load: true
 
         artwork_file:
             uri_prefix: /artwork

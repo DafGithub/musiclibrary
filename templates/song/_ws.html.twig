@@ -1,9 +1,7 @@
 {% for song in songs %}
-
-    <div class="row mb-4 SongComponent">
-
+<div class="row mb-4 SongComponent" >
         <div class="col-md-2 mt-auto mb-auto">
-            <img src="{{ vich_uploader_asset(song, 'artwork')| imagine_filter('thumb') }}" alt=""
+            <img src="{{ vich_uploader_asset(song, 'artwork')| imagine_filter('thumb') }}" alt="artwork"
                  style="width: 100%; height: auto">
         </div>
 
@@ -26,13 +24,23 @@
             <div class="col-md-2 m-auto">
                 <div class="controls">
                     <div class="btn-group-sm text-center" role="group">
-                        <button type="button" class="btn btn-primary play-button" data-action="play">
+                        <button type="button" class="btn btn-primary play-button" data-action="play" name="Play-Pause"
+                                aria-label="Play-Pause" title="Play-Pause">
                             <span class="fas fa-play"></span>
                         </button>
-                        {% if app.user %}
-                        <a href="{{ path('addfavorite', {id: song.id}) }}" class="btn btn-primary ajaxLink" title="Add to your favorites"
+
+                        {% if app.user and not app.user.favorites.contains(song) %}
+                        <a href="{{ path('addfavorite', {id: song.id}) }}" class="btn btn-primary addfavorites"
+                           title="Add to your favorites" name="Add to your favorites" aria-label="Add to your favorites"
                         data-success-message="{{ song.name|e('html_attr') }} just added to your favorites">
+
+                            {# Si le morceau existe dans favoris alors appliquer la class fa-check-circle
+                            sinon .... #}
+
+
+
                             <i class="fas fa-heart"></i>
+
                         </a>
                         {% endif %}
                     </div>
@@ -51,6 +59,6 @@
         {% endif %}
     </div>
     <hr>
-
 {% endfor %}
+
 

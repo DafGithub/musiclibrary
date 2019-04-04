@@ -8,12 +8,14 @@ use App\Form\EditProfileType;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Vich\UploaderBundle\Handler\DownloadHandler;
 
 /**
  * @Route("/member")
@@ -102,8 +104,24 @@ class MemberController extends AbstractController
            'form' => $form->createView()
        ]);
 
-
-
     }
+
+    /**
+     * @Route("/download/{id}", name="download_file")
+     * @param DownloadHandler $downloadHandler
+     * @param UploadedFile $file
+     * @param Song $song
+     * @return \Symfony\Component\HttpFoundation\StreamedResponse
+     */
+    public function downloadFileAction(DownloadHandler $downloadHandler, Song $song){
+        return $downloadHandler->downloadObject(
+            $song,
+            'audioFile',
+            null,
+            $song->getName().'.'.'wav',
+            true
+        );
+    }
+//$song->getgetAudioFile()->getExtension()
 
 }

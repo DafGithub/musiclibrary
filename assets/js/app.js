@@ -9,14 +9,10 @@ let $ = require('jquery');
 require('bootstrap');
 require('../css/app.scss');
 require('../js/ws.js');
-require('../js/scrollup.js');
 require('../css/main.css');
 require('animate.css');
-
 require('../../node_modules/animsition/dist/css/animsition.css');
 require('animsition');
-require('./animsitionadd.js');
-
 require('select2');
 require('@fortawesome/fontawesome-free/css/all.min.css');
 require('@fortawesome/fontawesome-free/js/all.js');
@@ -33,22 +29,64 @@ require('../../public/assets/tether/tether.min.js');
 require('../../public/assets/popper/popper.min.js');
 require('../../public/assets/theme/js/script.js');
 require('bootstrap-notify');
-/*
-*Jarallax
-*/
+
+
+
+/*Jarallax*/
 import {jarallax} from 'jarallax';
 
 jarallax(document.querySelectorAll('.jarallax'), {
     speed: 0.2
 });
 
+
+/*Select2*/
 global.$ = $;
 $('select').select2();
 
 
+/* BootstrapNotify*/
 $('.notify').each(function (index, elt) {
     $.notify({
         message: $(elt).data('message')
-    }, {type: 'success'});
+    }, {type: 'success',
+        placement: {
+            from: "top",
+            align: "right"
+            },
+        offset: 70,
+        }
+    );
+
     $(elt).remove();
+});
+
+
+/* Animsition */
+$(".animsition").animsition({});
+
+
+
+/*Scrollup*/
+$('.scrollUp').click(function () {
+    $('html, body').animate(
+        {scrollTop: 0}, 'slow');
+});
+
+var duration = 500;
+var duration2 = 200;
+$(window).scroll(function () {
+    if ($(this).scrollTop() > 300) {
+        // Si un défillement de 100 pixels ou plus.
+        // Ajoute le bouton
+        $('.scrollUp').fadeIn(duration);
+    } else {
+        // Sinon enlève le bouton
+        $('.scrollUp').fadeOut(duration);
+    }
+    if ($(this).scrollTop() > 30) {
+        $('.visible').fadeIn(duration2);
+    } else {
+        $('.visible').fadeOut(duration);
+    }
 });

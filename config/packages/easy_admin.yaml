@@ -40,12 +40,15 @@ easy_admin:
         User:
             class: App\Entity\User
             list:
-                fields: ['Username', 'firstname', 'lastname', 'Email']
+                fields: ['username', 'firstname', 'lastname', 'Email', 'favorites', 'roles']
 
-#            form:
-#                fields:
-#                    - username
-#                    - email
+            form:
+                fields:
+                    - username
+                    - firstname
+                    - lastname
+                    - email
+                    - password
 
     site_name: 'Music Library'
 #    site_name: '<img src="https://symfony.com/logos/symfony_white_01.png" />'
